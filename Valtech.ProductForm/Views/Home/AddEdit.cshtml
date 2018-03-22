@@ -1,0 +1,37 @@
+﻿@model Valtech.ProductForm.Models.ProductVm
+
+<br/><br/><br/>
+@if (ViewBag.Errors != null)
+{
+    <ul>
+        @foreach (var error in ViewBag.Errors)
+        {
+            <li class="text-danger">@error</li>
+        }
+    </ul>
+}
+<form action="/Home/Save">
+    <div class="form-group">
+        @if (Model.Id != 0)
+        {
+            @: Id: <input class="form-control" name="Id" value="@Model.Id" readonly="readonly"/>
+            <br />
+        }
+        Name:<input name="Name" class="form-control" value="@Model.Name" />
+        <br />
+        Price (EUR): <input class="form-control" name="Price" value="@Model.Price" />
+        <br />
+        Category: <select name="Category.Name" class="form-control">
+            @foreach (var c in Model.Categories)
+            {
+                <option selected="@(Model.Category.Id == c.Id)">@c.Name</option>
+            }
+        </select>
+        <br/>
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+</form>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
